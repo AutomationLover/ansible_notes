@@ -1,0 +1,9 @@
+# Ignore Terraform auto-generated files
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+.terraform/
+
+# Ignore Ansible auto-generated files
+*.retry
+*.fact
