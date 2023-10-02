@@ -84,7 +84,7 @@ resource "aws_security_group_rule" "allow_8080" {
   type              = "ingress"
   from_port         = 8080
   to_port           = 8080
-  protocol          = "tcp"s
+  protocol          = "tcp"
   security_group_id = data.aws_security_group.default.id # var.default_security_group_id
   cidr_blocks       = ["0.0.0.0/0"]
 }
