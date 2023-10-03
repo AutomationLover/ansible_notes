@@ -18,5 +18,3 @@ remote_user = your_username
 在此示例中，我们定义了inventory和private_key_file的路径，关闭了主机密钥检查，并设定了远程用户名。
 
 您可以访问 [https://docs.ansible.com/ansible/latest/reference_appendices/config.html](https://docs.ansible.com/ansible/latest/reference_appendices/config.html) 查看完整的参考信息。
-
-此外，您还可以在Ansible的GitHub仓库中查看默认的ansible.cfg文件，其中包含了许多注释，对各个设置进行了解释。链接是 [https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg](https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg)。
