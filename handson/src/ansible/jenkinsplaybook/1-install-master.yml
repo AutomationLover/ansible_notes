@@ -1,0 +1,60 @@
+---
+- name: Install Jenkins on Ubuntu
+  hosts: tag_master  # Replace with the target server's hostname or IP address
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"  # Only run on Debian-based systems (like Ubuntu)
+
+    - name: Install Java (OpenJDK 11)
+      apt:
+        name: openjdk-11-jdk
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Add Jenkins APT repository key
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Add Jenkins APT repository
+      apt_repository:
+        repo: deb http://pkg.jenkins.io/debian-stable binary/
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Update APT package cache after adding Jenkins repository
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Configure Jenkins timezone during installation
+      command: echo "jenkins shared/accepted-sun-dlj-v1-1 boolean true" | debconf-set-selections
+      when: ansible_os_family == "Debian"
+
+    - name: Start Jenkins service and enable it on boot
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+        
+    - name: Get Jenkins initial admin password
+      command: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_initial_password
+      changed_when: false
+      when: ansible_os_family == "Debian"
+
+    - name: Display Jenkins initial admin password
+      debug:
+        var: jenkins_initial_password.stdout_lines
+      when: ansible_os_family == "Debian"
