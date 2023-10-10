@@ -99,6 +99,20 @@ Here are some popular Ansible modules and examples of how they can be used:
        src: /path/to/local/template.j2
        dest: /path/on/remote/server
    ```
+   `/path/to/local/template.j2` might look something like this:
+   
+   ```
+   server {
+       listen 80;
+       server_name {{ server_name }};
+       
+       location / {
+           root /var/www/{{ server_name }};
+           index index.html;
+       }
+   }
+   ```
+
 You can find the comprehensive list of all available Ansible modules in the official Ansible documentation. Here's the web address:
 
 https://docs.ansible.com/ansible/latest/collections/index_module.html
